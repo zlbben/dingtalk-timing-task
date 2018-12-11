@@ -1,7 +1,7 @@
 const schedule = require('node-schedule');
 const fetch = require('node-fetch')
 
-let dingtalkUrl = 'https://oapi.dingtalk.com/robot/send?access_token=2f6de77b2f1ad2dc3e0decfd63c29b99db1d73c2f4aacdf83f7464892397c222'
+let dingtalkUrl = 'https://oapi.dingtalk.com/robot/send?access_token=215918f8f7fe1794ba4d96f4481f12890ecb708bec6db5d764975af51233b085'
 let dingMessage = {
   msgtype: "text",
   text: {

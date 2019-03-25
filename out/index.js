@@ -1,23 +1,24 @@
 "use strict";
 const schedule = require('node-schedule');
 const fetch = require('node-fetch');
-let dingtalkUrl = 'https://oapi.dingtalk.com/robot/send?access_token=215918f8f7fe1794ba4d96f4481f12890ecb708bec6db5d764975af51233b085';
+let dingtalkUrl = 'https://oapi.dingtalk.com/robot/send?access_token=1559976653999f704af684658de80b2a52038ba5ba434c45435c2cebc2393a9c';
 let dingMessage = {
-    msgtype: "text",
+    msgtype: 'text',
     text: {
-        content: ""
+        content: ''
     },
     at: {
         atMobiles: [],
         isAtAll: true
     }
 };
-schedule.scheduleJob('0 11,15,16,17,18 * * 1-5', function (fireDate) {
-    dingMessage.text.content = '坐太久了，大家起来活动啦：' + new Date().toTimeString();
+schedule.scheduleJob('0 10,11,15,16,17,18 * * 1-5', function (fireDate) {
+    dingMessage.text.content =
+        '坐太久了，大家起来活动啦：' + new Date().toTimeString();
     fetch(dingtalkUrl, {
         method: 'post',
         body: JSON.stringify(dingMessage),
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json' }
     })
         .then(res => res.json())
         .then(json => console.log(json));

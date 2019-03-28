@@ -22,28 +22,31 @@ let info = [
   }
 ];
 
-async function init() {
+export default async function init() {
   const browser = await puppeteer.launch({ devtools: false });
-  let hasError = false;
-
   const page = await browser.newPage();
+
+  let data: any = { url: babaPath };
+
   try {
     await page.goto(babaPath, { timeout: 0 });
-    let res = await Promise.all(
+    let res: any = await Promise.all(
       info.map(async val => {
-        let data = await page.$eval(val.select, (el: any) => {
+        let __res = await page.$eval(val.select, (el: any) => {
           return el.innerText;
         });
-        return { [val.name]: data };
+        return { [val.name]: __res };
       })
     );
-    console.log('res:', res);
-    await browser.close();
-    return res;
+    res.map(val => {
+      Object.assign(data, val);
+    });
   } catch (error) {
     console.log('error:', error);
+    data = null;
   }
   await browser.close();
+  return data;
 }
 
 init();

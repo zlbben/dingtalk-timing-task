@@ -34,24 +34,27 @@ let info = [
 function init() {
     return __awaiter(this, void 0, void 0, function* () {
         const browser = yield puppeteer_1.default.launch({ devtools: false });
-        let hasError = false;
         const page = yield browser.newPage();
+        let data = { url: babaPath };
         try {
             yield page.goto(babaPath, { timeout: 0 });
             let res = yield Promise.all(info.map((val) => __awaiter(this, void 0, void 0, function* () {
-                let data = yield page.$eval(val.select, (el) => {
+                let __res = yield page.$eval(val.select, (el) => {
                     return el.innerText;
                 });
-                return { [val.name]: data };
+                return { [val.name]: __res };
             })));
-            console.log('res:', res);
-            yield browser.close();
-            return res;
+            res.map(val => {
+                Object.assign(data, val);
+            });
         }
         catch (error) {
             console.log('error:', error);
+            data = null;
         }
         yield browser.close();
+        return data;
     });
 }
+exports.default = init;
 init();

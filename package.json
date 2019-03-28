@@ -20,6 +20,7 @@
     "@types/node": "^10.12.9",
     "koa": "^2.6.2",
     "node-fetch": "^2.3.0",
-    "node-schedule": "^1.3.0"
+    "node-schedule": "^1.3.0",
+    "puppeteer": "^1.13.0"
   }
 }
